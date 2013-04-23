@@ -1,0 +1,75 @@
+{
+   "abstract" : "Cot framework Simple session plugin.",
+   "author" : [
+      "Yusuke Shibata <shibata@yusukeshibata.jp>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Minilla/v0.0.53",
+   "license" : "perl_5",
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "Cot-Plugin-Session",
+   "no_index" : {
+      "directory" : [
+         "t",
+         "xt",
+         "inc",
+         "share",
+         "eg",
+         "examples"
+      ]
+   },
+   "prereqs" : {
+      "configure" : {
+         "requires" : {
+            "CPAN::Meta" : "0",
+            "CPAN::Meta::Prereqs" : "0",
+            "Module::Build" : "0.38"
+         }
+      },
+      "develop" : {
+         "requires" : {
+            "Pod::Wordlist::hanekomu" : "0",
+            "Test::CPAN::Meta" : "0",
+            "Test::MinimumVersion" : "0.10108",
+            "Test::Pod" : "1.41",
+            "Test::Spelling" : "0"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Cot" : "0",
+            "Digest::SHA1" : "0",
+            "YAML" : "0",
+            "parent" : "0",
+            "perl" : "5.008005"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "Cot" : "0",
+            "Test::More" : "0.98"
+         }
+      }
+   },
+   "provides" : {
+      "Cot::Plugin::Session" : {
+         "file" : "lib/Cot/Plugin/Session.pm",
+         "version" : "0.01"
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/yusukeshibata/Cot-Plugin-Session/issues"
+      },
+      "homepage" : "https://github.com/yusukeshibata/Cot-Plugin-Session",
+      "repository" : {
+         "url" : "git://github.com/yusukeshibata/Cot-Plugin-Session.git",
+         "web" : "https://github.com/yusukeshibata/Cot-Plugin-Session"
+      }
+   },
+   "version" : "0.01"
+}

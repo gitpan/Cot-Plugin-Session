@@ -1,0 +1,41 @@
+---
+abstract: 'Cot framework Simple session plugin.'
+author:
+  - 'Yusuke Shibata <shibata@yusukeshibata.jp>'
+build_requires:
+  Cot: 0
+  Test::More: 0.98
+configure_requires:
+  CPAN::Meta: 0
+  CPAN::Meta::Prereqs: 0
+  Module::Build: 0.38
+dynamic_config: 0
+generated_by: 'Minilla/v0.0.53, CPAN::Meta::Converter version 2.130880'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Cot-Plugin-Session
+no_index:
+  directory:
+    - t
+    - xt
+    - inc
+    - share
+    - eg
+    - examples
+provides:
+  Cot::Plugin::Session:
+    file: lib/Cot/Plugin/Session.pm
+    version: 0.01
+requires:
+  Cot: 0
+  Digest::SHA1: 0
+  YAML: 0
+  parent: 0
+  perl: 5.008005
+resources:
+  bugtracker: https://github.com/yusukeshibata/Cot-Plugin-Session/issues
+  homepage: https://github.com/yusukeshibata/Cot-Plugin-Session
+  repository: git://github.com/yusukeshibata/Cot-Plugin-Session.git
+version: 0.01
