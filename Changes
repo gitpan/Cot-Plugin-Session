@@ -1,5 +1,9 @@
 Revision history for Perl extension Cot-Plugin-Session
 
+0.04 2013-04-24T08:16:53Z
+
+    - pod fixed.
+
 0.03 2013-04-24T07:53:35Z
 
     - big bug fix.

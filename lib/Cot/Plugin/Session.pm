@@ -2,7 +2,7 @@ package Cot::Plugin::Session;
 use strict;
 use warnings;
 use 5.008005;
-our $VERSION = "0.03";
+our $VERSION = "0.04";
 use parent qw(Cot::Plugin);
 use File::Spec;
 use Digest::SHA1 ();
@@ -87,10 +87,11 @@ Cot::Plugin::Session - Cot framework Simple session plugin.
 
     get '/sign/in' => sub {
         my $self = shift;
-        my $id = $self->session->get('id');
-        $self->session->set('id', 'yshibata') unless $id;
-        $self->session->bakecookie(path => '/',
-                                   expires => time + 24 * 60 * 60,);
+        my $sess = $self->session->load;
+        my $id = $sess->get('id');
+        $sess->set('id', 'yshibata') unless $id;
+        $sess->bakecookie(path => '/',
+                          expires => time + 24 * 60 * 60,);
         #code
     };
 
@@ -111,7 +112,8 @@ Retrieve value with key from session object.
 
     get '/sign/in' => sub {
         my $self = shift;
-        my $id = $self->session->get('id');
+        my $sess = $self->session->load;
+        my $id = $sess->get('id');
         #code
     };
 
@@ -119,21 +121,24 @@ Retrieve value with key from session object.
 
 Store value with key to session object.
 
-    $self->session->set('id', 'yshibata');
+    my $sess = $self->session->load;
+    $sess->set('id', 'yshibata');
 
 =head2 delete
 
 Delete session object.
 
-    $self->session->delete;
+    my $sess = $self->session->load;
+    $sess->delete;
 
 =head2 bakecookie
 
 Bake session id COOKIE to HTTP header.
 
-    $self->session->bakecookie(path => '/',
-                               expires => time + 24 * 60 * 60,
-                               domain => '.example.com',);
+    my $sess = $self->session->load;
+    $sess->bakecookie(path => '/',
+                      expires => time + 24 * 60 * 60,
+                      domain => '.example.com',);
 
 =head1 LICENSE
 

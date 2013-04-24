@@ -9,10 +9,11 @@ Cot::Plugin::Session - Cot framework Simple session plugin.
 
     get '/sign/in' => sub {
         my $self = shift;
-        my $id = $self->session->get('id');
-        $self->session->set('id', 'yshibata') unless $id;
-        $self->session->bakecookie(path => '/',
-                                   expires => time + 24 * 60 * 60,);
+        my $sess = $self->session->load;
+        my $id = $sess->get('id');
+        $sess->set('id', 'yshibata') unless $id;
+        $sess->bakecookie(path => '/',
+                          expires => time + 24 * 60 * 60,);
         #code
     };
 
@@ -33,7 +34,8 @@ Retrieve value with key from session object.
 
     get '/sign/in' => sub {
         my $self = shift;
-        my $id = $self->session->get('id');
+        my $sess = $self->session->load;
+        my $id = $sess->get('id');
         #code
     };
 
@@ -41,21 +43,24 @@ Retrieve value with key from session object.
 
 Store value with key to session object.
 
-    $self->session->set('id', 'yshibata');
+    my $sess = $self->session->load;
+    $sess->set('id', 'yshibata');
 
 ## delete
 
 Delete session object.
 
-    $self->session->delete;
+    my $sess = $self->session->load;
+    $sess->delete;
 
 ## bakecookie
 
 Bake session id COOKIE to HTTP header.
 
-    $self->session->bakecookie(path => '/',
-                               expires => time + 24 * 60 * 60,
-                               domain => '.example.com',);
+    my $sess = $self->session->load;
+    $sess->bakecookie(path => '/',
+                      expires => time + 24 * 60 * 60,
+                      domain => '.example.com',);
 
 # LICENSE
 

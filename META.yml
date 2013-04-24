@@ -27,7 +27,7 @@ no_index:
 provides:
   Cot::Plugin::Session:
     file: lib/Cot/Plugin/Session.pm
-    version: 0.03
+    version: 0.04
   Cot::Plugin::Session::Object:
     file: lib/Cot/Plugin/Session.pm
 requires:
@@ -40,4 +40,4 @@ resources:
   bugtracker: https://github.com/yusukeshibata/Cot-Plugin-Session/issues
   homepage: https://github.com/yusukeshibata/Cot-Plugin-Session
   repository: git://github.com/yusukeshibata/Cot-Plugin-Session.git
-version: 0.03
+version: 0.04
