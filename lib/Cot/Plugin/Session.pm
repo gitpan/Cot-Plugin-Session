@@ -2,8 +2,9 @@ package Cot::Plugin::Session;
 use strict;
 use warnings;
 use 5.008005;
-our $VERSION = "0.02";
+our $VERSION = "0.03";
 use parent qw(Cot::Plugin);
+use File::Spec;
 use Digest::SHA1 ();
 use YAML         ();
 use Carp;
@@ -16,49 +17,58 @@ sub init {
     $cot->session($self);
 }
 
-sub bakecookie {
-    my ( $self, %param ) = @_;
-    $self->{_app}->res->cookies->{$SESSIONID} = {
-        value => $self->{_sessid},
-        %param,
-    };
-}
-
-sub _load {
-    my $self = shift;
-    $self->{_sess}   = {};
-    $self->{_sessid} = $self->{_app}->req->cookies->{$SESSIONID};
-    $self->{_sessid} = Digest::SHA1::sha1_hex( rand() . $$ . {} . time )
-      unless ( $self->{_sessid} && -f $self->_path );
-    my $path = $self->_path;
-    $self->{_sess} = YAML::LoadFile($path)
-      if ( -f $path );
-    $self->{_sess} ||= {};
+sub load {
+    my $self   = shift;
+    my $sessid = $self->{_app}->req->cookies->{$SESSIONID};
+    $sessid = Digest::SHA1::sha1_hex( rand() . $$ . {} . time )
+      unless ( $sessid && -f $self->_path($sessid) );
+    my $path    = $self->_path($sessid);
+    my $sessobj = {};
+    $sessobj = YAML::LoadFile($path) if ( -f $path );
+    new Cot::Plugin::Session::Object(
+        {
+            _app => $self->{_app},
+            path => $path,
+            obj  => $sessobj,
+            id   => $sessid,
+        }
+    );
 }
 
 sub _path {
-    my $self = shift;
-    sprintf( "%s/%s", $self->{_dir}, $self->{_sessid} );
+    my ( $self, $sessid ) = @_;
+    File::Spec->catfile( $self->{_dir}, $sessid );
+}
+
+package Cot::Plugin::Session::Object;
+
+sub new {
+    my ( $class, $obj ) = @_;
+    bless $obj, $class;
 }
 
 sub get {
     my ( $self, $k ) = @_;
-    $self->_load;
-    $self->{_sess}->{$k};
+    $self->{obj}->{$k};
 }
 
 sub set {
     my ( $self, $k, $v ) = @_;
-    $self->_load;
-    $self->{_sess}->{$k} = $v;
-    YAML::DumpFile( $self->_path, $self->{_sess} );
+    $self->{obj}->{$k} = $v;
+    YAML::DumpFile( $self->{path}, $self->{obj} );
 }
 
 sub delete {
     my $self = shift;
-    $self->_load;
-    $self->{_sess} = {};
-    unlink $self->_path or croak $!;
+    unlink $self->{path} or croak $!;
+}
+
+sub bakecookie {
+    my ( $self, %param ) = @_;
+    $self->{_app}->res->cookies->{$Cot::Plugin::Session::SESSIONID} = {
+        value => $self->{id},
+        %param,
+    };
 }
 
 1;

@@ -57,7 +57,10 @@
    "provides" : {
       "Cot::Plugin::Session" : {
          "file" : "lib/Cot/Plugin/Session.pm",
-         "version" : "0.02"
+         "version" : "0.03"
+      },
+      "Cot::Plugin::Session::Object" : {
+         "file" : "lib/Cot/Plugin/Session.pm"
       }
    },
    "release_status" : "stable",
@@ -71,5 +74,5 @@
          "web" : "https://github.com/yusukeshibata/Cot-Plugin-Session"
       }
    },
-   "version" : "0.02"
+   "version" : "0.03"
 }
