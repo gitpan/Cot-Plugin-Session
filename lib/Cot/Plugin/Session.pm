@@ -2,7 +2,7 @@ package Cot::Plugin::Session;
 use strict;
 use warnings;
 use 5.008005;
-our $VERSION = "0.01";
+our $VERSION = "0.02";
 use parent qw(Cot::Plugin);
 use Digest::SHA1 ();
 use YAML         ();
@@ -26,7 +26,6 @@ sub bakecookie {
 
 sub _load {
     my $self = shift;
-    return if $self->{_sess};
     $self->{_sess}   = {};
     $self->{_sessid} = $self->{_app}->req->cookies->{$SESSIONID};
     $self->{_sessid} = Digest::SHA1::sha1_hex( rand() . $$ . {} . time )
