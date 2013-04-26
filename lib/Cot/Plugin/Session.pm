@@ -2,7 +2,7 @@ package Cot::Plugin::Session;
 use strict;
 use warnings;
 use 5.008005;
-our $VERSION = "0.04";
+our $VERSION = "0.05";
 use parent qw(Cot::Plugin);
 use File::Spec;
 use Digest::SHA1 ();
@@ -60,7 +60,7 @@ sub set {
 
 sub delete {
     my $self = shift;
-    unlink $self->{path} or croak $!;
+    unlink $self->{path} if ( -f $self->{path} );
 }
 
 sub bakecookie {

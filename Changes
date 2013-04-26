@@ -1,5 +1,9 @@
 Revision history for Perl extension Cot-Plugin-Session
 
+0.05 2013-04-26T00:02:26Z
+
+   - not die when delete failed.
+
 0.04 2013-04-24T08:16:53Z
 
     - pod fixed.
