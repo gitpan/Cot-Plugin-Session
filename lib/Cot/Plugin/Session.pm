@@ -2,7 +2,7 @@ package Cot::Plugin::Session;
 use strict;
 use warnings;
 use 5.008005;
-our $VERSION = "0.05";
+our $VERSION = "0.06";
 use parent qw(Cot::Plugin);
 use File::Spec;
 use Digest::SHA1 ();
@@ -18,8 +18,8 @@ sub init {
 }
 
 sub load {
-    my $self   = shift;
-    my $sessid = $self->{_app}->req->cookies->{$SESSIONID};
+    my ( $self, $sessid ) = @_;
+    $sessid ||= $self->{_app}->req->cookies->{$SESSIONID};
     $sessid = Digest::SHA1::sha1_hex( rand() . $$ . {} . time )
       unless ( $sessid && -f $self->_path($sessid) );
     my $path    = $self->_path($sessid);

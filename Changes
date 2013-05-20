@@ -1,5 +1,9 @@
 Revision history for Perl extension Cot-Plugin-Session
 
+0.06 2013-05-20T01:56:11Z
+
+   - load function updated.
+
 0.05 2013-04-26T00:02:26Z
 
    - not die when delete failed.
