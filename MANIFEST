@@ -1,5 +1,3 @@
-.gitignore
-.travis.yml
 Build.PL
 Changes
 LICENSE
@@ -8,8 +6,5 @@ README.md
 cpanfile
 lib/Cot/Plugin/Session.pm
 t/00_compile.t
-Build.PL
-LICENSE
-META.json
 META.yml
 MANIFEST

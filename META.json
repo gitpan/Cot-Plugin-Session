@@ -4,7 +4,7 @@
       "Yusuke Shibata <shibata@yusukeshibata.jp>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v0.0.53",
+   "generated_by" : "Minilla/v0.5.6",
    "license" : "perl_5",
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
@@ -18,7 +18,8 @@
          "inc",
          "share",
          "eg",
-         "examples"
+         "examples",
+         "author"
       ]
    },
    "prereqs" : {
@@ -31,11 +32,10 @@
       },
       "develop" : {
          "requires" : {
-            "Pod::Wordlist::hanekomu" : "0",
             "Test::CPAN::Meta" : "0",
             "Test::MinimumVersion" : "0.10108",
             "Test::Pod" : "1.41",
-            "Test::Spelling" : "0"
+            "Test::Spellunker" : "v0.2.7"
          }
       },
       "runtime" : {
@@ -57,7 +57,7 @@
    "provides" : {
       "Cot::Plugin::Session" : {
          "file" : "lib/Cot/Plugin/Session.pm",
-         "version" : "0.06"
+         "version" : "0.07"
       },
       "Cot::Plugin::Session::Object" : {
          "file" : "lib/Cot/Plugin/Session.pm"
@@ -74,5 +74,5 @@
          "web" : "https://github.com/yusukeshibata/Cot-Plugin-Session"
       }
    },
-   "version" : "0.06"
+   "version" : "0.07"
 }

@@ -1,5 +1,9 @@
 Revision history for Perl extension Cot-Plugin-Session
 
+0.07 2013-07-21T10:14:21Z
+
+   - change store dir behavior.
+
 0.06 2013-05-20T01:56:11Z
 
    - load function updated.

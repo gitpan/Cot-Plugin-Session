@@ -2,18 +2,19 @@ package Cot::Plugin::Session;
 use strict;
 use warnings;
 use 5.008005;
-our $VERSION = "0.06";
+our $VERSION = "0.07";
 use parent qw(Cot::Plugin);
 use File::Spec;
 use Digest::SHA1 ();
 use YAML         ();
 use Carp;
 our $SESSIONID = 'sessid';
+use constant STOREDIR => '_cotsession';
 
 sub init {
     my ( $self, $cot ) = @_;
     $self->{_app} = $cot;
-    $self->{_dir} = $ENV{TMPDIR} || '/tmp';
+    $self->{_dir} = File::Spec->catdir( $ENV{TMPDIR} || '/tmp', STOREDIR );
     $cot->session($self);
 }
 
@@ -28,6 +29,7 @@ sub load {
     new Cot::Plugin::Session::Object(
         {
             _app => $self->{_app},
+            dir  => $self->_dir($sessid),
             path => $path,
             obj  => $sessobj,
             id   => $sessid,
@@ -35,12 +37,26 @@ sub load {
     );
 }
 
+sub _dir {
+    my ( $self, $sessid ) = @_;
+    File::Spec->catdir(
+        $self->{_dir},
+        substr( $sessid, 0, 2 ),
+        substr( $sessid, 2, 2 )
+    );
+}
+
 sub _path {
     my ( $self, $sessid ) = @_;
-    File::Spec->catfile( $self->{_dir}, $sessid );
+    File::Spec->catfile(
+        $self->{_dir},
+        substr( $sessid, 0, 2 ),
+        substr( $sessid, 2, 2 ), $sessid
+    );
 }
 
 package Cot::Plugin::Session::Object;
+use File::Path qw/mkpath/;
 
 sub new {
     my ( $class, $obj ) = @_;
@@ -55,6 +71,7 @@ sub get {
 sub set {
     my ( $self, $k, $v ) = @_;
     $self->{obj}->{$k} = $v;
+    mkpath( $self->{dir} ) unless -e $self->{dir};
     YAML::DumpFile( $self->{path}, $self->{obj} );
 }
 
